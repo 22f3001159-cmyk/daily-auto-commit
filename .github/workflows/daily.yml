@@ -2,11 +2,8 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: '15 10 * * *'   # Runs daily at 10:15 UTC
+    - cron: '17 21 * * *'   # Runs daily at 21:17 UTC (specific time, no wildcards)
   workflow_dispatch:
-
-permissions:
-  contents: write   # 🔥 This fixes exit code 128
 
 jobs:
   auto-commit:
@@ -14,19 +11,19 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: 22f3001159@ds.study.iitm.ac.in
-        run: echo "Running daily auto commit"
+        run: echo "Running auto commit step"
 
-      - name: Make changes
+      - name: Make daily update
         run: |
-          echo "Last updated: $(date)" >> daily-log.txt
+          echo "Last update: $(date)" >> activity.log
 
-      - name: Commit changes
+      - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add daily-log.txt
-          git commit -m "Daily automated commit" || echo "No changes to commit"
+          git add activity.log
+          git commit -m "Daily automated commit"
           git push
