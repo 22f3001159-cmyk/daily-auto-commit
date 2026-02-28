@@ -2,8 +2,11 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: '15 10 * * *'   # Runs daily at 10:15 UTC (specific time, no wildcards)
-  workflow_dispatch:        # Allows manual trigger
+    - cron: '15 10 * * *'   # Runs daily at 10:15 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write   # 🔥 This fixes exit code 128
 
 jobs:
   auto-commit:
